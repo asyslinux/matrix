@@ -1,0 +1,8 @@
+/var/log/dendrite/* {
+        rotate 7
+        daily
+        compress
+        missingok
+        delaycompress
+        copytruncate
+}

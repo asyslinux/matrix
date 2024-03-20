@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#Varriables
+
+USERNAME="$1"
+PASSWORD="$2"
+ADMIN="$3"
+
+#Main
+
+if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] || [ "$1" = "help" ]; then
+
+echo ""
+echo "Script for create matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username password # Creates standart account"
+echo "$0 username password --admin # Creates administrator account"
+echo ""
+
+exit 0
+
+fi
+
+if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] ; then
+
+echo ""
+echo "Error: empty/bad username or password"
+echo ""
+echo "Script for create matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username password"
+echo "$0 username password --admin"
+echo ""
+
+exit 1
+
+fi
+
+if [ "$ADMIN" = "--admin" ]; then
+
+create-account --config /etc/dendrite/dendrite.yaml -admin -username $USERNAME -password $PASSWORD
+
+else
+
+create-account --config /etc/dendrite/dendrite.yaml -username $USERNAME -password $PASSWORD
+
+fi
+
+#END

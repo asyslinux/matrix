@@ -1,0 +1,79 @@
+#!/bin/bash
+
+#Varriables
+
+USERNAME="$1"
+PASSWORD=`pwgen -cns 32`
+TASK="$2"
+DMNNAME="DOMAIN"
+TOKEN="ADMINTOKEN"
+
+PAYLOAD='{"password":"'$PASSWORD'","logout_devices": true}'
+
+#Main
+
+if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] || [ "$1" = "help" ]; then
+
+echo ""
+echo "Script for work with matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username deactivate # Deactivate account"
+echo ""
+
+exit 0
+
+fi
+
+if [ -z "$USERNAME" ] || [ -z "$TASK" ]; then
+
+echo ""
+echo "Error: empty/bad username or task"
+echo ""
+echo "Script for work with matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username deactivate # Deactivate account"
+echo ""
+
+exit 1
+
+fi
+
+if [ "$USERNAME" = "admin" ]; then
+
+echo "Info: user with username: admin can not be deactivated, because this user is used for dcreate/dpasswd/daccmod utilites"
+echo ""
+
+exit 1
+
+fi
+
+if [ "$TASK" = "deactivate" ]; then
+
+curl -X POST --header "Authorization: Bearer ${TOKEN}" "http://127.0.0.1:8008/_dendrite/admin/resetPassword/@${USERNAME}:${DMNNAME}" -d "${PAYLOAD}"
+
+echo ""
+
+else
+
+echo ""
+echo "Error: bad task: $TASK"
+echo ""
+echo "Script for work with matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username deactivate # Deactivate account"
+echo ""
+
+exit 1
+
+fi
+
+#END

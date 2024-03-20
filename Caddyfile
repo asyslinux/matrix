@@ -1,0 +1,17 @@
+# Reverse proxy to Dendrite, both :443 and :8448
+DOMAIN DOMAIN:8448 {
+
+    handle /.well-known/matrix/server {
+	respond "{\"m.server\":\"DOMAIN:443\"}"
+    }
+
+    handle /.well-known/matrix/client {
+	respond "{\"m.homeserver\":{\"base_url\":\"https://DOMAIN\"}}"
+    }
+
+    handle /_matrix/* {
+	reverse_proxy http://127.0.0.1:8008 {
+	}
+    }
+
+}

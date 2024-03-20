@@ -1,0 +1,22 @@
+[Unit]
+After=network.target network-online.target postgresql@PGVERS-dendrite.service
+Requires=network-online.target postgresql@PGVERS-dendrite.service
+Description=Dendrite Matrix Service
+
+[Service]
+Type=simple
+User=dendrite
+Group=dendrite
+TimeoutStopSec=300
+
+ExecStart=/usr/local/bin/dendrite -config /etc/dendrite/dendrite.yaml -http-bind-address 127.0.0.1:8008
+ExecStop=/bin/kill -s TERM $MAINPID
+
+Restart=always
+RestartSec=300s
+
+LimitNOFILE=131072
+
+[Install]
+WantedBy=multi-user.target
+Alias=dendrite.service

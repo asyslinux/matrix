@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#Varriables
+
+USERNAME="$1"
+PASSWORD="$2"
+DMNNAME="DOMAIN"
+TOKEN="ADMINTOKEN"
+
+PAYLOAD='{"password":"'$PASSWORD'","logout_devices": true}'
+
+#Main
+
+if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] || [ "$1" = "help" ]; then
+
+echo ""
+echo "Script for change password on matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username password # Change password on account"
+echo ""
+
+exit 0
+
+fi
+
+if [ -z "$USERNAME" ] || [ -z "$PASSWORD" ] ; then
+
+echo ""
+echo "Error: empty/bad username or password"
+echo ""
+echo "Script for change password on matrix/dendrite accounts:"
+echo ""
+
+echo "Examples:"
+echo ""
+echo "$0 username password # Change password on account"
+echo ""
+
+exit 1
+
+fi
+
+if [ "$USERNAME" = "admin" ]; then
+
+echo "Info: password for user with username: admin can not be changed because this user is used for dcreate/dpasswd/daccmod utilites"
+echo ""
+
+exit 1
+
+fi
+
+curl -X POST --header "Authorization: Bearer ${TOKEN}" "http://127.0.0.1:8008/_dendrite/admin/resetPassword/@${USERNAME}:${DMNNAME}" -d "${PAYLOAD}"
+
+echo ""
+
+#END
