@@ -46,14 +46,6 @@ chmod 0600 $HM/config.conf || errors "Can not change mode on $HM/config.conf fil
 
 fi
 
-if [ $DBNVERS -eq 11 ]; then
-PGVERS="13"
-elif [ $DBNVERS -eq 12 ]; then
-PGVERS="15"
-elif [ $DBNVERS -eq 13 ]; then
-PGVERS="17"
-fi
-
 apt update && apt -y install pwgen dnsutils || exit 1
 
 ADMINTMPLPWD=`pwgen -cns 32 -1`
@@ -265,7 +257,15 @@ chown -R turnserver:turnserver /usr/local/etc/ssl/$DOMAIN || errors "Can not rec
 fi
 
 systemctl enable coturn || errors "Can not enable coturn service"
-systemctl start coturn && systemctl restart coturn || errors "Can not start coturn service"
+systemctl start coturn && sleep 3 && systemctl restart coturn || errors "Can not start coturn service"
+
+if [ $DBNVERS -eq 11 ]; then
+PGVERS="13"
+elif [ $DBNVERS -eq 12 ]; then
+PGVERS="15"
+elif [ $DBNVERS -eq 13 ]; then
+PGVERS="17"
+fi
 
 if [ -d /etc/postgresql/$PGVERS/main ]; then
 
@@ -275,6 +275,8 @@ systemctl disable postgresql || errors "Can not disable postgresql.service defau
 systemctl disable postgresql@$PGVERS-main || errors "Can not disable postgresql@$PGVERS-main default systemd script"
 
 fi
+
+sleep 5
 
 if [ ! -d /etc/postgresql/$PGVERS/dendrite ]; then
 
