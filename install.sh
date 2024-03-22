@@ -150,7 +150,7 @@ systemctl start systemd-timesyncd || errors "Can not start systemd-timesyncd ser
 
 rsync -av $HM/limits.conf /etc/security/ || errors "Can not copy $HM/limits.conf configuration file to /etc/security/"
 
-dpkg-reconfigure locales # You need add en_US.UTF8/ru_RU.UTF* locales and select by default en_US.UTF8 locale
+dpkg-reconfigure locales # You need add en_US.UTF-8/ru_RU.UTF-8 locales and select by default en_US.UTF-8 locale
 
 #Install Go Language
 
