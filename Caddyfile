@@ -1,4 +1,4 @@
-# Reverse proxy to Dendrite, both :443 and :8448
+# Reverse proxy to Dendrite, all of :80 and :443 and :8448
 DOMAIN DOMAIN:8448 {
 
     handle /.well-known/matrix/server {
