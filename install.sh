@@ -205,7 +205,7 @@ fi
 
 rsync -av $HM/dendrite.yaml /etc/dendrite || errors "Can not copy $HM/dendrite.yaml configuration file to /etc/dendrite/"
 rsync -av $HM/turnserver.conf /etc/ || errors "Can not copy $HM/turnserver.conf configuration file to /etc/"
-rsync -av $HM/dendrite /etc/logrotate.d/ || errors "Can not copy $HM/dendrite configuration file to /etc/logrotate.d/"
+#rsync -av $HM/dendrite /etc/logrotate.d/ || errors "Can not copy $HM/dendrite configuration file to /etc/logrotate.d/"
 
 sed -i -e "s#DOMAIN#$DOMAIN#g" /etc/dendrite/dendrite.yaml || errors "Can not set domain in /etc/dendrite/dendrite.yaml file"
 sed -i -e "s#TURNTLSPORT#$TURNTLSPORT#" /etc/dendrite/dendrite.yaml || errors "Can not set turn tls port in /etc/dendrite/dendrite.yaml file"

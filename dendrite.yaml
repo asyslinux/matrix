@@ -247,6 +247,11 @@ federation_api:
   # last resort.
   prefer_direct_fetch: false
 
+  # Note: Enabling relays introduces a huge startup delay, if you are not using
+  # relays and have many servers to re-hydrate on start. Only enable this
+  # if you are using relays!
+  enable_relays: true
+
 # Configuration for the Media API.
 media_api:
   # Storage path for uploaded media. May be relative or absolute.

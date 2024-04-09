@@ -67,6 +67,8 @@ fi
 
 cd $HM
 
+test -f /etc/logrotate.d/dendrite && rm -f /etc/logrotate.d/dendrite # Remove non-needed external logrotate, dendrite have internal logrotate
+
 if [ "$TASK" = "upgrade" ]; then
 
 apt update || errors "Can not apt update"
