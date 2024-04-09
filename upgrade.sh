@@ -17,6 +17,14 @@ exit 1
 
 fi
 
+if [ $DBNVERS -eq 11 ]; then
+PGVERS="13"
+elif [ $DBNVERS -eq 12 ]; then
+PGVERS="15"
+elif [ $DBNVERS -eq 13 ]; then
+PGVERS="17"
+fi
+
 source $HM/config.conf || exit 1
 
 if [ -z "$DOMAIN" ]; then
