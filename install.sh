@@ -172,7 +172,7 @@ cat /etc/profile | grep 'GOPATH/bin' 1>/dev/null || echo 'export PATH=$GOPATH/bi
 #Install Dendrite
 
 mkdir -p $SRC && cd $SRC || errors "Can not create $SRC directory"
-test -d $SRC/dendrite || git clone --single-branch --branch ${DNDRVERS} https://github.com/matrix-org/dendrite
+test -d $SRC/dendrite || git clone --single-branch --branch ${DNDRVERS} https://github.com/element-hq/dendrite
 cd $SRC/dendrite && go build -o bin/ ./cmd/... || errors "Can not build dendrite"
 
 rsync -av $SRC/dendrite/bin/* /usr/local/bin/ || errors "Can not copy dendrite binary files from $SRC/dendrite/bin/* to /usr/local/bin/"
