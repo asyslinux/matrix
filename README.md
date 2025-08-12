@@ -32,7 +32,7 @@
 2. Скачать и преднастроить конфигурационный файл инсталлятора:
 
 ```
-apt update && apt -y install mc git && cd /root && git clone https://github.com/asyslinux/matrix.git && cd matrix && cp config-sample.conf config.conf && mcedit config.conf
+apt update && apt -y install mc bc git && cd /root && git clone https://github.com/asyslinux/matrix.git && cd matrix && cp config-sample.conf config.conf && mcedit config.conf
 ```
 
 - Справка по настройке файла `config.conf`:
